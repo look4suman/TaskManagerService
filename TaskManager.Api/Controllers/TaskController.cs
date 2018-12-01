@@ -27,24 +27,28 @@ namespace TaskManager.Api.Controllers
         }
 
         [HttpGet]
+        [Route("Task/{taskId}")]
         public TaskModel Task(int taskId)
         {
             return _app.GetTaskByTaskId(taskId);
         }
 
         [HttpPost]
+        [Route("AddTask")]
         public void AddTask(TaskModel task)
         {
             _app.AddTask(task);
         }
 
         [HttpPut]
+        [Route("EndTask")]
         public void EndTask(TaskModel task)
         {
             _app.EndTask(task);
         }
 
         [HttpPost]
+        [Route("UpdateTask")]
         public void UpdateTask(TaskModel task)
         {
             _app.UpdateTask(task);
