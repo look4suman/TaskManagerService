@@ -23,7 +23,11 @@ namespace TaskManager.BusinessLayer
                 Task = taskModel.Task
             };
 
-            task.Parent_ID = taskModel.ParentTaskId;
+            if (!string.IsNullOrWhiteSpace(taskModel.ParentTask))
+            {
+                task.Parent_ID = this.GetTasks().FirstOrDefault(x => x.Task == taskModel.ParentTask)?.TaskId;
+            }
+            
             task.Priority = taskModel.Priority;
             task.Start_Date = Convert.ToDateTime(taskModel.StartDate);
             task.End_Date = Convert.ToDateTime(taskModel.EndDate);
@@ -36,9 +40,9 @@ namespace TaskManager.BusinessLayer
             this.AddTask(task);
         }
 
-        public void EndTask(TaskModel task)
+        public void EndTask(int TaskId)
         {
-            this._repository.EndTask(task.TaskId);
+            this._repository.EndTask(TaskId);
         }
 
         public TaskModel GetTaskByTaskId(int TaskId)
@@ -54,7 +58,8 @@ namespace TaskManager.BusinessLayer
                 EndDate = task.End_Date.GetValueOrDefault().ToString(),
                 Priority = task.Priority.GetValueOrDefault(),
                 ParentTaskId = task.Parent_ID,
-                ParentTask = task.Parent_ID.HasValue ? (taskList.FirstOrDefault(x => x.Task_ID == task.Parent_ID).Task) : string.Empty
+                ParentTask = task.Parent_ID.HasValue ? (taskList.FirstOrDefault(x => x.Task_ID == task.Parent_ID)?.Task) : string.Empty,
+                IsEditable = task.End_Date != null ? (task.End_Date.Value.Date > DateTime.Now.Date) : true
             };
             return taskModel;
         }
@@ -75,7 +80,7 @@ namespace TaskManager.BusinessLayer
                     EndDate = item.End_Date.ToString(),
                     IsEditable = item.End_Date != null ? (item.End_Date.Value.Date > DateTime.Now.Date) : true,
                     ParentTaskId = item.Parent_ID,
-                    ParentTask = item.Parent_ID.HasValue ? (tasks.FirstOrDefault(x => x.Task_ID == item.Parent_ID).Task) : string.Empty
+                    ParentTask = item.Parent_ID.HasValue ? (tasks.FirstOrDefault(x => x.Task_ID == item.Parent_ID)?.Task) : string.Empty
                 };
                 taskList.Add(taskModel);
             }

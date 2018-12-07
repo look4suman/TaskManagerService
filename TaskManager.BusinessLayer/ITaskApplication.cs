@@ -8,7 +8,7 @@ namespace TaskManager.BusinessLayer
         void AddTask(TaskModel task);
         IList<TaskModel> GetTasks();
         TaskModel GetTaskByTaskId(int TaskId);
-        void EndTask(TaskModel task);
+        void EndTask(int TaskId);
         void UpdateTask(TaskModel task);
         bool IsTaskExists(string TaskName);
     }

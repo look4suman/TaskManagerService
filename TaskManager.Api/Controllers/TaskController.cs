@@ -40,11 +40,11 @@ namespace TaskManager.Api.Controllers
             _app.AddTask(task);
         }
 
-        [HttpPut]
-        [Route("EndTask")]
-        public void EndTask(TaskModel task)
+        [HttpDelete]
+        [Route("EndTask/{taskId}")]
+        public void EndTask(int taskId)
         {
-            _app.EndTask(task);
+            _app.EndTask(taskId);
         }
 
         [HttpPost]
