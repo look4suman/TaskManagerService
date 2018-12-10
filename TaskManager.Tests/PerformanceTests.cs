@@ -25,8 +25,8 @@ namespace TaskMaster.Tests
         }
 
         [PerfBenchmark(Description = "Add task through put test.",
-        NumberOfIterations = 500, RunMode = RunMode.Throughput,
-        RunTimeMilliseconds = 1200, TestMode = TestMode.Measurement)]
+        NumberOfIterations = 3, RunMode = RunMode.Throughput,
+        RunTimeMilliseconds = 50, TestMode = TestMode.Measurement)]
         [CounterMeasurement("TestCounter")]
         [MemoryAssertion(MemoryMetric.TotalBytesAllocated, MustBe.LessThanOrEqualTo, ByteConstants.ThirtyTwoKb)]
         [GcTotalAssertion(GcMetric.TotalCollections, GcGeneration.Gen2, MustBe.ExactlyEqualTo, 0.0d)]
@@ -37,8 +37,8 @@ namespace TaskMaster.Tests
         }
 
         [PerfBenchmark(Description = "Get Specific task.",
-        NumberOfIterations = 500, RunMode = RunMode.Throughput,
-        RunTimeMilliseconds = 1200, TestMode = TestMode.Measurement)]
+        NumberOfIterations = 3, RunMode = RunMode.Throughput,
+        RunTimeMilliseconds = 50, TestMode = TestMode.Measurement)]
         [CounterMeasurement("TestCounter")]
         [MemoryAssertion(MemoryMetric.TotalBytesAllocated, MustBe.LessThanOrEqualTo, ByteConstants.ThirtyTwoKb)]
         [GcTotalAssertion(GcMetric.TotalCollections, GcGeneration.Gen2, MustBe.ExactlyEqualTo, 0.0d)]
